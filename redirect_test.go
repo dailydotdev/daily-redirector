@@ -8,8 +8,8 @@ import (
 	"testing"
 )
 
-var getPostSuccess = func(t *testing.T, expId string) func(id string) (Post, error) {
-	return func(id string) (Post, error) {
+var getPostSuccess = func(t *testing.T, expId string) func(id string, r *http.Request) (Post, error) {
+	return func(id string, r *http.Request) (Post, error) {
 		assert.Equal(t, id, expId, "wrong post id")
 
 		return Post{
@@ -85,7 +85,7 @@ func TestViewPublish(t *testing.T) {
 }
 
 func TestAPIFail(t *testing.T) {
-	getPost = func(id string) (Post, error) {
+	getPost = func(id string, r *http.Request) (Post, error) {
 		return Post{}, errors.New("fail")
 	}
 

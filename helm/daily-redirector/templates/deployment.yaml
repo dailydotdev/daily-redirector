@@ -1,0 +1,84 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "daily-redirector.fullname" . }}
+  labels:
+    app: {{ template "daily-redirector.name" . }}
+    chart: {{ template "daily-redirector.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "daily-redirector.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      annotations:
+        checksum/files: {{ include (print $.Template.BasePath "/secret-files.yaml") . | sha256sum }}
+        checksum/configmap: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+      labels:
+        app: {{ template "daily-redirector.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 9090
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+          env:
+          - name: ENV
+            value: PROD
+          - name: PORT
+            value: "9090"
+          - name: GOOGLE_APPLICATION_CREDENTIALS
+            value: "/etc/config/serviceAccount.json"
+          - name: CACHE_SIZE
+            valueFrom:
+              configMapKeyRef:
+                name: {{ template "daily-redirector.fullname" . }}
+                key: CACHE_SIZE
+          - name: API_URL
+            valueFrom:
+              configMapKeyRef:
+                name: {{ template "daily-redirector.fullname" . }}
+                key: API_URL
+          - name: GCLOUD_PROJECT
+            valueFrom:
+              configMapKeyRef:
+                name: {{ template "daily-redirector.fullname" . }}
+                key: GCLOUD_PROJECT
+          volumeMounts:
+          - name: config
+            mountPath: "/etc/config"
+            readOnly: true
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+      volumes:
+      - name: config
+        secret:
+          secretName: {{ template "daily-redirector.fullname" . }}-files
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}

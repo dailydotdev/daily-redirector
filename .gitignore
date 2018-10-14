@@ -1,5 +1,6 @@
 .idea
 tmp/
+helm/values/*.yaml
 
 ### Go template
 # Binaries for programs and plugins

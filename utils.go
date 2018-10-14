@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"net/http"
 	"os"
 	"regexp"
 	"unicode"
@@ -15,8 +16,8 @@ func getEnv(key, fallback string) string {
 	return fallback
 }
 
-func getJson(url string, target interface{}) error {
-	r, err := httpClient.Get(url)
+func getJson(req *http.Request, target interface{}) error {
+	r, err := httpClient.Do(req)
 	if err != nil {
 		return err
 	}

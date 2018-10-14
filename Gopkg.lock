@@ -2,20 +2,70 @@
 
 
 [[projects]]
-  digest = "1:0d172343052627ed02353b54f4b69ec6004bfe23bb4b684365a522fee3fefcb0"
+  digest = "1:42cd6f8342a7d4184c38c92ac74ca9a98301ae3d9012a9f3c09ed39a08296740"
   name = "cloud.google.com/go"
   packages = [
     "compute/metadata",
     "iam",
     "internal/optional",
     "internal/version",
+    "monitoring/apiv3",
     "pubsub",
     "pubsub/apiv1",
     "pubsub/internal/distribution",
+    "trace/apiv2",
   ]
   pruneopts = "UT"
   revision = "dfffe386c33fb24c34ee501e5723df5b97b98514"
   version = "v0.30.0"
+
+[[projects]]
+  digest = "1:45381144fe0fc2ed4d9687c424e13695ac1aa1614031608f823f93b8fd1bf3bc"
+  name = "contrib.go.opencensus.io/exporter/stackdriver"
+  packages = [
+    ".",
+    "monitoredresource",
+    "propagation",
+  ]
+  pruneopts = "UT"
+  revision = "2b93072101d466aa4120b3c23c2e1b08af01541c"
+  version = "v0.6.0"
+
+[[projects]]
+  digest = "1:c703941154f0a026f4cb38fcdc5dfb842c1e268f935b86c4d904382465899b9c"
+  name = "github.com/aws/aws-sdk-go"
+  packages = [
+    "aws",
+    "aws/awserr",
+    "aws/awsutil",
+    "aws/client",
+    "aws/client/metadata",
+    "aws/corehandlers",
+    "aws/credentials",
+    "aws/credentials/ec2rolecreds",
+    "aws/credentials/endpointcreds",
+    "aws/credentials/stscreds",
+    "aws/csm",
+    "aws/defaults",
+    "aws/ec2metadata",
+    "aws/endpoints",
+    "aws/request",
+    "aws/session",
+    "aws/signer/v4",
+    "internal/sdkio",
+    "internal/sdkrand",
+    "internal/sdkuri",
+    "internal/shareddefaults",
+    "private/protocol",
+    "private/protocol/query",
+    "private/protocol/query/queryutil",
+    "private/protocol/rest",
+    "private/protocol/xml/xmlutil",
+    "service/sts",
+  ]
+  pruneopts = "UT"
+  revision = "bf8067ceb6e7f51e150c218972dccfeeed892b85"
+  version = "v1.15.54"
 
 [[projects]]
   digest = "1:ffe9824d294da03b391f44e1ae8281281b4afc1bdaa9588c9097785e3af10cec"
@@ -26,7 +76,15 @@
   version = "v1.1.1"
 
 [[projects]]
-  digest = "1:19e1717be26f549febea402e08b46db7919d164324a24ff67e0c81dfb11316b8"
+  digest = "1:b98e7574fc27ec166fb31195ec72c3bd0bffd73926d3612eb4c929bc5236f75b"
+  name = "github.com/go-ini/ini"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "7b294651033cd7d9e7f0d9ffa1b75ed1e198e737"
+  version = "v1.38.3"
+
+[[projects]]
+  digest = "1:72856926f8208767b837bf51e3373f49139f61889b67dc7fd3c2a0fd711e3f7a"
   name = "github.com/golang/protobuf"
   packages = [
     "proto",
@@ -35,7 +93,9 @@
     "ptypes/any",
     "ptypes/duration",
     "ptypes/empty",
+    "ptypes/struct",
     "ptypes/timestamp",
+    "ptypes/wrappers",
   ]
   pruneopts = "UT"
   revision = "aa810b61a9c79d51363740d207bb46cf8e620ed5"
@@ -59,6 +119,13 @@
   pruneopts = "UT"
   revision = "20f1fb78b0740ba8c3cb143a61e86ba5c8669768"
   version = "v0.5.0"
+
+[[projects]]
+  digest = "1:e22af8c7518e1eab6f2eab2b7d7558927f816262586cd6ed9f349c97a6c285c4"
+  name = "github.com/jmespath/go-jmespath"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "0b12d6b5"
 
 [[projects]]
   digest = "1:ccfa094742ce1c97fd3f6481e1bf98f3d9862510eee2bc0eb56e2745396bd330"
@@ -264,11 +331,17 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:d1445753ec9f776b64ddbd636b54b7b6d41971a0d87aadd70113adb5a8ae5150"
+  digest = "1:537ed4b32d5b0331681636d6e482eff8a7c5fcf62da060310acdc08f15139512"
   name = "google.golang.org/genproto"
   packages = [
     "googleapis/api/annotations",
+    "googleapis/api/distribution",
+    "googleapis/api/label",
+    "googleapis/api/metric",
+    "googleapis/api/monitoredres",
+    "googleapis/devtools/cloudtrace/v2",
     "googleapis/iam/v1",
+    "googleapis/monitoring/v3",
     "googleapis/pubsub/v1",
     "googleapis/rpc/status",
     "protobuf/field_mask",
@@ -317,12 +390,16 @@
   analyzer-version = 1
   input-imports = [
     "cloud.google.com/go/pubsub",
+    "contrib.go.opencensus.io/exporter/stackdriver",
+    "contrib.go.opencensus.io/exporter/stackdriver/propagation",
     "github.com/hashicorp/golang-lru",
     "github.com/julienschmidt/httprouter",
     "github.com/mssola/user_agent",
     "github.com/sirupsen/logrus",
     "github.com/sony/gobreaker",
     "github.com/stretchr/testify/assert",
+    "go.opencensus.io/plugin/ochttp",
+    "go.opencensus.io/trace",
     "google.golang.org/api/option",
   ]
   solver-name = "gps-cdcl"

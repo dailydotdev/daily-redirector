@@ -1,13 +1,19 @@
 package main
 
 import (
+	"contrib.go.opencensus.io/exporter/stackdriver"
+	"contrib.go.opencensus.io/exporter/stackdriver/propagation"
 	"fmt"
 	"github.com/hashicorp/golang-lru"
 	"github.com/julienschmidt/httprouter"
 	"github.com/mssola/user_agent"
 	log "github.com/sirupsen/logrus"
+	"go.opencensus.io/plugin/ochttp"
+	"go.opencensus.io/trace"
+	"google.golang.org/api/option"
 	"html/template"
 	"net/http"
+	"os"
 	"strconv"
 	"time"
 )
@@ -25,8 +31,9 @@ type View struct {
 	Timestamp time.Time
 }
 
-var httpClient = &http.Client{Timeout: 5 * time.Second}
-var cache *lru.Cache = nil
+var httpClient *http.Client
+var cache *lru.Cache
+var gcpOpts []option.ClientOption
 
 func RedirectBrowser(w http.ResponseWriter, r *http.Request, postId string, url string) {
 	t, err := template.ParseFiles("tmpl/redirect.html")
@@ -75,7 +82,7 @@ func Redirect(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 		}
 	} else {
 		log.Info("cache miss for post ", postId)
-		post, err = getPost(postId)
+		post, err = getPost(postId, r)
 		if err != nil {
 			log.Warn("failed to get response from api ", err)
 			http.Error(w, "Service Unavailable", http.StatusServiceUnavailable)
@@ -101,8 +108,31 @@ func createRouter() *httprouter.Router {
 }
 
 func init() {
-	if getEnv("LOG_FORMAT", "text") == "json" {
+	if file, ok := os.LookupEnv("GOOGLE_APPLICATION_CREDENTIALS"); ok {
+		gcpOpts = append(gcpOpts, option.WithCredentialsFile(file))
+	}
+
+	if getEnv("ENV", "DEV") == "PROD" {
 		log.SetFormatter(&log.JSONFormatter{})
+
+		exporter, err := stackdriver.NewExporter(stackdriver.Options{
+			ProjectID:          os.Getenv("GCLOUD_PROJECT"),
+			TraceClientOptions: gcpOpts,
+		})
+		if err != nil {
+			log.Fatal(err)
+		}
+		trace.RegisterExporter(exporter)
+
+		httpClient = &http.Client{
+			Timeout: 5 * time.Second,
+			Transport: &ochttp.Transport{
+				// Use Google Cloud propagation format.
+				Propagation: &propagation.HTTPFormat{},
+			},
+		}
+	} else {
+		httpClient = &http.Client{Timeout: 5 * time.Second}
 	}
 
 	var err error

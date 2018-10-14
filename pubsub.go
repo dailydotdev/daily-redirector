@@ -5,7 +5,6 @@ import (
 	"context"
 	"errors"
 	log "github.com/sirupsen/logrus"
-	"google.golang.org/api/option"
 	"os"
 )
 
@@ -17,12 +16,7 @@ func configurePubsub() (*pubsub.Client, error) {
 	projectID := os.Getenv("GCLOUD_PROJECT")
 	ctx := context.Background()
 
-	var opts []option.ClientOption
-	if file, ok := os.LookupEnv("GOOGLE_APPLICATION_CREDENTIALS"); ok {
-		opts = append(opts, option.WithCredentialsFile(file))
-	}
-
-	client, err := pubsub.NewClient(ctx, projectID, opts...)
+	client, err := pubsub.NewClient(ctx, projectID, gcpOpts...)
 	if err != nil {
 		return nil, err
 	}
