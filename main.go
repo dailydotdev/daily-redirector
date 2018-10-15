@@ -84,8 +84,12 @@ func Redirect(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 		log.Info("cache miss for post ", postId)
 		post, err = getPost(postId, r)
 		if err != nil {
-			log.Warn("failed to get response from api ", err)
-			http.Error(w, "Service Unavailable", http.StatusServiceUnavailable)
+			if err.Error() == "not found" {
+				http.NotFound(w, r)
+			} else {
+				log.Warn("failed to get response from api ", err)
+				http.Error(w, "Service Unavailable", http.StatusServiceUnavailable)
+			}
 			return
 		}
 		cache.Add(postId, post)

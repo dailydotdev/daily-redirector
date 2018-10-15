@@ -2,9 +2,11 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
 	"os"
 	"regexp"
+	"strconv"
 	"unicode"
 	"unicode/utf8"
 )
@@ -21,9 +23,13 @@ func getJson(req *http.Request, target interface{}) error {
 	if err != nil {
 		return err
 	}
-	defer r.Body.Close()
+	if r.StatusCode == http.StatusOK {
+		defer r.Body.Close()
 
-	return json.NewDecoder(r.Body).Decode(target)
+		return json.NewDecoder(r.Body).Decode(target)
+	} else {
+		return errors.New(strconv.Itoa(r.StatusCode))
+	}
 }
 
 // Regexp definitions

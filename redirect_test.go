@@ -100,3 +100,20 @@ func TestAPIFail(t *testing.T) {
 
 	assert.Equal(t, http.StatusServiceUnavailable, rr.Code, "wrong status code")
 }
+
+func TestNotFound(t *testing.T) {
+	getPost = func(id string, r *http.Request) (Post, error) {
+		return Post{}, errors.New("not found")
+	}
+
+	req, err := http.NewRequest("GET", "/r/post_id5", nil)
+	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36")
+	assert.Nil(t, err)
+
+	rr := httptest.NewRecorder()
+
+	router := createRouter()
+	router.ServeHTTP(rr, req)
+
+	assert.Equal(t, http.StatusNotFound, rr.Code, "wrong status code")
+}
