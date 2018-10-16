@@ -116,6 +116,7 @@ func init() {
 		gcpOpts = append(gcpOpts, option.WithCredentialsFile(file))
 	}
 
+	log.SetOutput(os.Stdout)
 	if getEnv("ENV", "DEV") == "PROD" {
 		log.SetFormatter(&log.JSONFormatter{})
 
