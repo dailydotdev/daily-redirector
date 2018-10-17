@@ -68,17 +68,11 @@ func Health(w http.ResponseWriter, _ *http.Request, _ httprouter.Params) {
 }
 
 func Redirect(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	_, span := trace.StartSpan(r.Context(), "redirector:redirect")
-	defer span.End()
-
 	postId := ps.ByName("id")
 	var post Post
 	var err error
 
 	if cache.Contains(postId) {
-		_, span := trace.StartSpan(r.Context(), "redirector:cache")
-		defer span.End()
-
 		if value, ok := cache.Get(postId); ok {
 			post = value.(Post)
 		} else {
@@ -87,9 +81,6 @@ func Redirect(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 			return
 		}
 	} else {
-		_, span := trace.StartSpan(r.Context(), "redirector:getPost")
-		defer span.End()
-
 		log.Info("cache miss for post ", postId)
 		post, err = getPost(postId, r)
 		if err != nil {
@@ -136,7 +127,9 @@ func init() {
 		if err != nil {
 			log.Fatal(err)
 		}
+		log.Info("registering stackdriver tracer")
 		trace.RegisterExporter(exporter)
+		trace.ApplyConfig(trace.Config{DefaultSampler: trace.ProbabilitySampler(1e-3)})
 
 		httpClient = &http.Client{
 			Timeout: 5 * time.Second,
