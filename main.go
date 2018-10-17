@@ -129,7 +129,6 @@ func init() {
 		}
 		log.Info("registering stackdriver tracer")
 		trace.RegisterExporter(exporter)
-		trace.ApplyConfig(trace.Config{DefaultSampler: trace.ProbabilitySampler(1e-3)})
 
 		httpClient = &http.Client{
 			Timeout: 5 * time.Second,
@@ -159,7 +158,7 @@ func main() {
 	router := createRouter()
 	addr := fmt.Sprintf(":%s", getEnv("PORT", "9090"))
 	log.Info("server is listening to ", addr)
-	err := http.ListenAndServe(addr, &ochttp.Handler{Handler: router}) // set listen addr
+	err := http.ListenAndServe(addr, &ochttp.Handler{Handler: router, Propagation: &propagation.HTTPFormat{}}) // set listen addr
 	if err != nil {
 		log.Fatal("failed to start listening ", err)
 	}
