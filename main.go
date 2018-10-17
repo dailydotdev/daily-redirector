@@ -118,6 +118,7 @@ func init() {
 		}
 		log.Info("registering stackdriver tracer")
 		trace.RegisterExporter(exporter)
+		trace.ApplyConfig(trace.Config{DefaultSampler: trace.AlwaysSample()})
 
 		httpClient = &http.Client{
 			Timeout: 5 * time.Second,
