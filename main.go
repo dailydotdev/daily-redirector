@@ -34,16 +34,12 @@ type View struct {
 var httpClient *http.Client
 var cache *lru.Cache
 var gcpOpts []option.ClientOption
+var tmpl *template.Template
 
 func RedirectBrowser(w http.ResponseWriter, r *http.Request, postId string, url string) {
-	t, err := template.ParseFiles("tmpl/redirect.html")
-	if err != nil {
-		log.Panic("failed to parse redirect template ", err)
-	}
-
 	data := RedirectData{url}
 	w.Header().Set("Cache-Control", "max-age=31536000")
-	err = t.Execute(w, data)
+	err := tmpl.Execute(w, data)
 	if err != nil {
 		log.Error("failed to execute redirect template ", err)
 		http.Error(w, "Server Internal Error", http.StatusInternalServerError)
@@ -72,14 +68,8 @@ func Redirect(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	var post Post
 	var err error
 
-	if cache.Contains(postId) {
-		if value, ok := cache.Get(postId); ok {
-			post = value.(Post)
-		} else {
-			log.Error("failed to fetch from cache ")
-			http.Error(w, "Server Internal Error", http.StatusInternalServerError)
-			return
-		}
+	if value, ok := cache.Get(postId); ok {
+		post = value.(Post)
 	} else {
 		log.Info("cache miss for post ", postId)
 		post, err = getPost(postId, r)
@@ -151,6 +141,11 @@ func init() {
 	cache, err = lru.New(size)
 	if err != nil {
 		log.Fatal("failed to initialize lru cache ", err)
+	}
+
+	tmpl, err = template.ParseFiles("tmpl/redirect.html")
+	if err != nil {
+		log.Fatal("failed to parse redirect template ", err)
 	}
 }
 
