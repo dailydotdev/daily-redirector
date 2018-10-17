@@ -38,7 +38,6 @@ var tmpl *template.Template
 
 func RedirectBrowser(w http.ResponseWriter, r *http.Request, postId string, url string) {
 	data := RedirectData{url}
-	w.Header().Set("Cache-Control", "max-age=31536000")
 	err := tmpl.Execute(w, data)
 	if err != nil {
 		log.Error("failed to execute redirect template ", err)
