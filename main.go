@@ -81,7 +81,7 @@ func Redirect(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 			}
 			return
 		}
-		cache.Add(postId, post)
+		defer cache.Add(postId, post)
 	}
 
 	ua := user_agent.New(r.UserAgent())
