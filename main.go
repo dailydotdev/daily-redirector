@@ -157,8 +157,7 @@ func main() {
 	router := createRouter()
 	addr := fmt.Sprintf(":%s", getEnv("PORT", "9090"))
 	log.Info("server is listening to ", addr)
-	http.Handle("/", router)
-	err := http.ListenAndServe(addr, &ochttp.Handler{}) // set listen addr
+	err := http.ListenAndServe(addr, &ochttp.Handler{Handler: router}) // set listen addr
 	if err != nil {
 		log.Fatal("failed to start listening ", err)
 	}
