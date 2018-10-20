@@ -207,6 +207,19 @@
   version = "v0.17.0"
 
 [[projects]]
+  digest = "1:a51a1c97b728b00cc514dfe5f78aad3354491792e69b881ea88176dd3fa30ef6"
+  name = "go.uber.org/automaxprocs"
+  packages = [
+    ".",
+    "internal/cgroups",
+    "internal/runtime",
+    "maxprocs",
+  ]
+  pruneopts = "UT"
+  revision = "946a8391268aea0a60a86403988ff3ab4b604a83"
+  version = "v1.2.0"
+
+[[projects]]
   branch = "master"
   digest = "1:3f3a05ae0b95893d90b9b3b5afdb79a9b3d96e4e36e099d841ae602e4aca0da8"
   name = "golang.org/x/crypto"
@@ -400,6 +413,7 @@
     "github.com/stretchr/testify/assert",
     "go.opencensus.io/plugin/ochttp",
     "go.opencensus.io/trace",
+    "go.uber.org/automaxprocs",
     "google.golang.org/api/option",
   ]
   solver-name = "gps-cdcl"

@@ -22,8 +22,8 @@ func TestRedirectOnBot(t *testing.T) {
 	getPost = getPostSuccess(t, "post_id")
 
 	req, err := http.NewRequest("GET", "/r/post_id", nil)
-	req.Header.Set("User-Agent", "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)")
 	assert.Nil(t, err)
+	req.Header.Set("User-Agent", "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)")
 
 	rr := httptest.NewRecorder()
 

@@ -10,6 +10,7 @@ import (
 	log "github.com/sirupsen/logrus"
 	"go.opencensus.io/plugin/ochttp"
 	"go.opencensus.io/trace"
+	_ "go.uber.org/automaxprocs"
 	"google.golang.org/api/option"
 	"html/template"
 	"net/http"
