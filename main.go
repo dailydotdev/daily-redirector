@@ -4,6 +4,7 @@ import (
 	"contrib.go.opencensus.io/exporter/stackdriver"
 	"contrib.go.opencensus.io/exporter/stackdriver/propagation"
 	"fmt"
+	"github.com/afex/hystrix-go/hystrix"
 	"github.com/hashicorp/golang-lru"
 	"github.com/julienschmidt/httprouter"
 	"github.com/mssola/user_agent"
@@ -102,6 +103,8 @@ func createRouter() *httprouter.Router {
 }
 
 func init() {
+	hystrix.ConfigureCommand(hystrixApi, hystrix.CommandConfig{Timeout: 2000})
+
 	if file, ok := os.LookupEnv("GOOGLE_APPLICATION_CREDENTIALS"); ok {
 		gcpOpts = append(gcpOpts, option.WithCredentialsFile(file))
 	}
@@ -122,14 +125,13 @@ func init() {
 		trace.ApplyConfig(trace.Config{DefaultSampler: trace.AlwaysSample()})
 
 		httpClient = &http.Client{
-			Timeout: 5 * time.Second,
 			Transport: &ochttp.Transport{
 				// Use Google Cloud propagation format.
 				Propagation: &propagation.HTTPFormat{},
 			},
 		}
 	} else {
-		httpClient = &http.Client{Timeout: 5 * time.Second}
+		httpClient = &http.Client{}
 	}
 
 	var err error

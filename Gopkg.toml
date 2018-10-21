@@ -42,10 +42,6 @@
   version = "0.30.0"
 
 [[constraint]]
-  name = "github.com/sony/gobreaker"
-  version = "0.4.0"
-
-[[constraint]]
   name = "github.com/hashicorp/golang-lru"
   version = "0.5.0"
 

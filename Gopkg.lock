@@ -32,6 +32,18 @@
   version = "v0.6.0"
 
 [[projects]]
+  branch = "master"
+  digest = "1:e307126636dff23d73e1aa30f6cb117ce76f493548c62ff0e7633f903c9172aa"
+  name = "github.com/afex/hystrix-go"
+  packages = [
+    "hystrix",
+    "hystrix/metric_collector",
+    "hystrix/rolling",
+  ]
+  pruneopts = "UT"
+  revision = "fa1af6a1f4f56e0e50d427fe901cd604d8c6fb8a"
+
+[[projects]]
   digest = "1:c703941154f0a026f4cb38fcdc5dfb842c1e268f935b86c4d904382465899b9c"
   name = "github.com/aws/aws-sdk-go"
   packages = [
@@ -166,14 +178,6 @@
   pruneopts = "UT"
   revision = "ad15b42461921f1fb3529b058c6786c6a45d5162"
   version = "v1.1.1"
-
-[[projects]]
-  digest = "1:d3ffbc45dfe6929a4ba313464c2d761d96325d306eda29512da56c034db2a4dd"
-  name = "github.com/sony/gobreaker"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "b2a34562d02c4d5fd6645399c69e00141fb24e5a"
-  version = "0.4.0"
 
 [[projects]]
   digest = "1:18752d0b95816a1b777505a97f71c7467a8445b8ffb55631a7bf779f6ba4fa83"
@@ -405,11 +409,11 @@
     "cloud.google.com/go/pubsub",
     "contrib.go.opencensus.io/exporter/stackdriver",
     "contrib.go.opencensus.io/exporter/stackdriver/propagation",
+    "github.com/afex/hystrix-go/hystrix",
     "github.com/hashicorp/golang-lru",
     "github.com/julienschmidt/httprouter",
     "github.com/mssola/user_agent",
     "github.com/sirupsen/logrus",
-    "github.com/sony/gobreaker",
     "github.com/stretchr/testify/assert",
     "go.opencensus.io/plugin/ochttp",
     "go.opencensus.io/trace",

@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"errors"
+	"github.com/afex/hystrix-go/hystrix"
 	"net/http"
 	"os"
 	"regexp"
@@ -30,6 +31,13 @@ func getJson(req *http.Request, target interface{}) error {
 	} else {
 		return errors.New(strconv.Itoa(r.StatusCode))
 	}
+}
+
+func getJsonHystrix(breakerName string, req *http.Request, target interface{}) error {
+	return hystrix.Do(breakerName,
+		func() error {
+			return getJson(req, target)
+		}, nil)
 }
 
 // Regexp definitions
