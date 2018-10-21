@@ -140,14 +140,6 @@
   revision = "0b12d6b5"
 
 [[projects]]
-  digest = "1:ccfa094742ce1c97fd3f6481e1bf98f3d9862510eee2bc0eb56e2745396bd330"
-  name = "github.com/julienschmidt/httprouter"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "8c199fb6259ffc1af525cc3ad52ee60ba8359669"
-  version = "v1.1"
-
-[[projects]]
   digest = "1:0a69a1c0db3591fcefb47f115b224592c8dfa4368b7ba9fae509d5e16cdc95c8"
   name = "github.com/konsorten/go-windows-terminal-sequences"
   packages = ["."]
@@ -411,7 +403,6 @@
     "contrib.go.opencensus.io/exporter/stackdriver/propagation",
     "github.com/afex/hystrix-go/hystrix",
     "github.com/hashicorp/golang-lru",
-    "github.com/julienschmidt/httprouter",
     "github.com/mssola/user_agent",
     "github.com/sirupsen/logrus",
     "github.com/stretchr/testify/assert",

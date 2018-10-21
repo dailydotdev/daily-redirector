@@ -30,10 +30,6 @@
   unused-packages = true
 
 [[constraint]]
-  name = "github.com/julienschmidt/httprouter"
-  version = "1.1.0"
-
-[[constraint]]
   name = "github.com/mssola/user_agent"
   version = "0.4.1"
 

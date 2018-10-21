@@ -27,7 +27,7 @@ func TestRedirectOnBot(t *testing.T) {
 
 	rr := httptest.NewRecorder()
 
-	router := createRouter()
+	router := createApp()
 	router.ServeHTTP(rr, req)
 
 	assert.Equal(t, http.StatusMovedPermanently, rr.Code, "wrong status code")
@@ -44,7 +44,7 @@ func TestRedirectOnBrowser(t *testing.T) {
 
 	rr := httptest.NewRecorder()
 
-	router := createRouter()
+	router := createApp()
 	router.ServeHTTP(rr, req)
 
 	assert.Equal(t, http.StatusOK, rr.Code, "wrong status code")
@@ -74,7 +74,7 @@ func TestViewPublish(t *testing.T) {
 
 	rr := httptest.NewRecorder()
 
-	router := createRouter()
+	router := createApp()
 	router.ServeHTTP(rr, req)
 
 	assert.Equal(t, http.StatusOK, rr.Code, "wrong status code")
@@ -95,7 +95,7 @@ func TestAPIFail(t *testing.T) {
 
 	rr := httptest.NewRecorder()
 
-	router := createRouter()
+	router := createApp()
 	router.ServeHTTP(rr, req)
 
 	assert.Equal(t, http.StatusServiceUnavailable, rr.Code, "wrong status code")
@@ -112,7 +112,7 @@ func TestNotFound(t *testing.T) {
 
 	rr := httptest.NewRecorder()
 
-	router := createRouter()
+	router := createApp()
 	router.ServeHTTP(rr, req)
 
 	assert.Equal(t, http.StatusNotFound, rr.Code, "wrong status code")
