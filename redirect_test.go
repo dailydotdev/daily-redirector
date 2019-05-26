@@ -23,7 +23,7 @@ func TestRedirectOnBot(t *testing.T) {
 
 	req, err := http.NewRequest("GET", "/r/post_id", nil)
 	assert.Nil(t, err)
-	req.Header.Set("User-Agent", "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)")
+	req.Header.Set("user-agent", "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)")
 
 	rr := httptest.NewRecorder()
 
@@ -39,7 +39,7 @@ func TestRedirectOnBrowser(t *testing.T) {
 	getPost = getPostSuccess(t, "post_id2")
 
 	req, err := http.NewRequest("GET", "/r/post_id2", nil)
-	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36")
+	req.Header.Set("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36")
 	assert.Nil(t, err)
 
 	rr := httptest.NewRecorder()
@@ -68,8 +68,8 @@ func TestViewPublish(t *testing.T) {
 	}
 
 	req, err := http.NewRequest("GET", "/r/post_id3", nil)
-	req.Header.Set("User-Agent", agent)
-	req.Header.Set("User-Id", "user_id")
+	req.Header.Set("user-agent", agent)
+	req.Header.Set("user-id", "user_id")
 	assert.Nil(t, err)
 
 	rr := httptest.NewRecorder()
@@ -90,7 +90,7 @@ func TestAPIFail(t *testing.T) {
 	}
 
 	req, err := http.NewRequest("GET", "/r/post_id4", nil)
-	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36")
+	req.Header.Set("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36")
 	assert.Nil(t, err)
 
 	rr := httptest.NewRecorder()
@@ -107,7 +107,7 @@ func TestNotFound(t *testing.T) {
 	}
 
 	req, err := http.NewRequest("GET", "/r/post_id5", nil)
-	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36")
+	req.Header.Set("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36")
 	assert.Nil(t, err)
 
 	rr := httptest.NewRecorder()

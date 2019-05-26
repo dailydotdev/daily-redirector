@@ -45,7 +45,7 @@ func RedirectBrowser(w http.ResponseWriter, r *http.Request, postId string, url 
 		http.Error(w, "Server Internal Error", http.StatusInternalServerError)
 	}
 
-	userId := r.Header.Get("User-Id")
+	userId := r.Header.Get("user-id")
 	if len(userId) > 0 {
 		view := View{
 			UserId:    userId,
