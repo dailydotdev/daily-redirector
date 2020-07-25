@@ -14,6 +14,7 @@ var getPostSuccess = func(t *testing.T, expId string) func(id string, r *http.Re
 
 		return Post{
 			Url: "https://www.dailynow.co",
+			Id: id,
 		}, nil
 	}
 }
