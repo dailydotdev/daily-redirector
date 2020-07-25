@@ -82,7 +82,7 @@ func Redirect(w http.ResponseWriter, r *http.Request, postId string) {
 
 	ua := user_agent.New(r.UserAgent())
 	if ua != nil && !ua.Bot() {
-		RedirectBrowser(w, r, postId, post.Url)
+		RedirectBrowser(w, r, post.Id, post.Url)
 	} else {
 		http.Redirect(w, r, post.Url, http.StatusMovedPermanently)
 	}

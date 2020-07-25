@@ -10,6 +10,7 @@ var apiUrl = getEnv("API_URL", "http://localhost:4000")
 var hystrixApi = "API"
 
 type Post struct {
+	Id  string
 	Url string
 }
 
