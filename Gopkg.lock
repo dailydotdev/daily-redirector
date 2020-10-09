@@ -148,12 +148,12 @@
   version = "v1.0.1"
 
 [[projects]]
-  digest = "1:9af6e6f3d2b57cf28ff14c411d712e5dfb6ed42f566c7523dbdc066f48a5b0af"
+  digest = "1:de3e0f1d9d5d2fa0f9e5cb8722bf0a99c520b7f95f0c76a23f25c04427bb5647"
   name = "github.com/mssola/user_agent"
   packages = ["."]
   pruneopts = "UT"
-  revision = "85b2f5798558a46fc23443c596e781712f4b7792"
-  version = "v0.4.1"
+  revision = "8ecdab51551156ee8777dd55d43ed3a758209ead"
+  version = "v0.5.2"
 
 [[projects]]
   digest = "1:0028cb19b2e4c3112225cd871870f2d9cf49b9b4276531f03438a88e94be86fe"
