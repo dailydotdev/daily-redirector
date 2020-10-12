@@ -148,14 +148,6 @@
   revision = "0b12d6b5"
 
 [[projects]]
-  digest = "1:0a69a1c0db3591fcefb47f115b224592c8dfa4368b7ba9fae509d5e16cdc95c8"
-  name = "github.com/konsorten/go-windows-terminal-sequences"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "5c8c8bd35d3832f5d134ae1e1e375b69a4d25242"
-  version = "v1.0.1"
-
-[[projects]]
   digest = "1:de3e0f1d9d5d2fa0f9e5cb8722bf0a99c520b7f95f0c76a23f25c04427bb5647"
   name = "github.com/mssola/user_agent"
   packages = ["."]
@@ -172,12 +164,12 @@
   version = "v1.0.0"
 
 [[projects]]
-  digest = "1:3f53e9e4dfbb664cd62940c9c4b65a2171c66acd0b7621a1a6b8e78513525a52"
+  digest = "1:1760ee71834b3d0c59ffb6e0f9444fb68aec64bd6630b99b349fb111f74022fa"
   name = "github.com/sirupsen/logrus"
   packages = ["."]
   pruneopts = "UT"
-  revision = "ad15b42461921f1fb3529b058c6786c6a45d5162"
-  version = "v1.1.1"
+  revision = "6699a89a232f3db797f2e280639854bbc4b89725"
+  version = "v1.7.0"
 
 [[projects]]
   digest = "1:2c8bb9a0858e2ab458c1641345b6eaa3754b7ae453f8d30b15701f8b12b7ead7"
@@ -225,14 +217,6 @@
   pruneopts = "UT"
   revision = "946a8391268aea0a60a86403988ff3ab4b604a83"
   version = "v1.2.0"
-
-[[projects]]
-  branch = "master"
-  digest = "1:3f3a05ae0b95893d90b9b3b5afdb79a9b3d96e4e36e099d841ae602e4aca0da8"
-  name = "golang.org/x/crypto"
-  packages = ["ssh/terminal"]
-  pruneopts = "UT"
-  revision = "a92615f3c49003920a58dedcf32cf55022cefb8d"
 
 [[projects]]
   branch = "master"
