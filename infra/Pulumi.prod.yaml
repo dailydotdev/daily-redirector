@@ -1,0 +1,8 @@
+config:
+  gcp:project: devkit-prod
+  gcp:region: us-central1
+  redirector:env:
+    apiUrl:
+      secure: AAABAJXOMkwQrSxNkSkildZinV1LfWUzTBQoRwE5J3ysD5V4fqnkdogLNEiuuCnOG1Po93aKfsBu/304PDPXWAZq5w==
+    cacheSize: 5000
+    gcloudProject: devkit-prod
