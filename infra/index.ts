@@ -1,3 +1,4 @@
+import * as pulumi from '@pulumi/pulumi';
 import * as gcp from '@pulumi/gcp';
 import {
   addIAMRolesToServiceAccount,
@@ -8,6 +9,9 @@ import {
 import { Output } from '@pulumi/pulumi';
 
 const name = 'redirector';
+
+const config = new pulumi.Config();
+const imageTag = config.require('tag');
 
 const vpcConnector = infra.getOutput('serverlessVPC') as Output<
   gcp.vpcaccess.Connector
@@ -45,7 +49,7 @@ const service = new gcp.cloudrun.Service(name, {
       containers: [
         {
           image:
-            `gcr.io/daily-ops/daily-${name}:ef26419069024f9214bdcad22daa966abe8e66c6`,
+            `gcr.io/daily-ops/daily-${name}:${imageTag}`,
           resources: { limits: { cpu: '1', memory: '256Mi' } },
           envs: secrets,
         },
