@@ -20,7 +20,7 @@ const vpcConnector = infra.getOutput('serverlessVPC') as Output<
 const serviceAccount = new gcp.serviceaccount.Account(`${name}-sa`, {
   accountId: `daily-${name}`,
   displayName: `daily-${name}`,
-}, {import: 'daily-redirector@devkit-prod.iam.gserviceaccount.com'});
+});
 
 addIAMRolesToServiceAccount(
   name,
