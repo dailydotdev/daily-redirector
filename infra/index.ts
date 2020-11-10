@@ -22,7 +22,7 @@ const serviceAccount = new gcp.serviceaccount.Account(`${name}-sa`, {
   displayName: `daily-${name}`,
 });
 
-addIAMRolesToServiceAccount(
+const iamMembers = addIAMRolesToServiceAccount(
   name,
   [
     { name: 'trace', role: 'roles/cloudtrace.agent' },
@@ -56,7 +56,7 @@ const service = new gcp.cloudrun.Service(name, {
       ],
     },
   },
-});
+}, { dependsOn: iamMembers });
 
 new gcp.cloudrun.IamMember(`${name}-public`, {
   service: service.name,

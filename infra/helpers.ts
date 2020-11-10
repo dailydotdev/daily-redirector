@@ -57,9 +57,9 @@ export function addIAMRolesToServiceAccount(
   prefix: string,
   roles: IAMRole[],
   serviceAccount: gcp.serviceaccount.Account,
-): void {
+): gcp.projects.IAMMember[] {
   const member = serviceAccountToMember(serviceAccount);
-  roles.forEach(
+  return roles.map(
     (role) =>
       new gcp.projects.IAMMember(`${prefix}-iam-${role.name}`, {
         role: role.role,
