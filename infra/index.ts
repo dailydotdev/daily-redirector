@@ -18,7 +18,8 @@ const vpcConnector = infra.getOutput('serverlessVPC') as Output<
 >;
 
 const serviceAccount = new gcp.serviceaccount.Account(`${name}-sa`, {
-  accountId: `daily-${name}`,
+  // Added 2 at the end as I think daily-redirector is bugged
+  accountId: `daily-${name}2`,
   displayName: `daily-${name}`,
 });
 
@@ -37,9 +38,12 @@ const secrets = createEnvVarsFromSecret(name);
 const service = new gcp.cloudrun.Service(name, {
   name,
   location,
+  autogenerateRevisionName: true,
   template: {
     metadata: {
       annotations: {
+        'run.googleapis.com/launch-stage': 'BETA',
+        'autoscaling.knative.dev/minScale': '1',
         'autoscaling.knative.dev/maxScale': '20',
         'run.googleapis.com/vpc-access-connector': vpcConnector.name,
       },
