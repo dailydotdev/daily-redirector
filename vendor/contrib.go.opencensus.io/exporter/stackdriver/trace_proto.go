@@ -17,6 +17,7 @@ package stackdriver
 import (
 	"fmt"
 	"math"
+	"strconv"
 	"time"
 	"unicode/utf8"
 
@@ -43,7 +44,7 @@ const (
 )
 
 // proto returns a protocol buffer representation of a SpanData.
-func protoFromSpanData(s *trace.SpanData, projectID string, mr *monitoredrespb.MonitoredResource) *tracepb.Span {
+func protoFromSpanData(s *trace.SpanData, projectID string, mr *monitoredrespb.MonitoredResource, userAgent string) *tracepb.Span {
 	if s == nil {
 		return nil
 	}
@@ -104,10 +105,20 @@ func protoFromSpanData(s *trace.SpanData, projectID string, mr *monitoredrespb.M
 			AttributeMap: make(map[string]*tracepb.AttributeValue),
 		}
 	}
-	sp.Attributes.AttributeMap[agentLabel] = &tracepb.AttributeValue{
-		Value: &tracepb.AttributeValue_StringValue{
-			StringValue: trunc(userAgent, maxAttributeStringValue),
-		},
+
+	// Only set the agent label if it is not already set. That enables the
+	// OpenCensus agent/collector to set the agent label based on the library that
+	// sent the span to the agent.
+	//
+	// We now provide a config option to set the userAgent explicitly, which is
+	// used both here and in request headers when sending metric data, but have
+	// retained this non-override functionality for backwards compatibility.
+	if _, hasAgent := sp.Attributes.AttributeMap[agentLabel]; !hasAgent {
+		sp.Attributes.AttributeMap[agentLabel] = &tracepb.AttributeValue{
+			Value: &tracepb.AttributeValue_StringValue{
+				StringValue: trunc(userAgent, maxAttributeStringValue),
+			},
+		}
 	}
 
 	es := s.MessageEvents
@@ -233,6 +244,13 @@ func attributeValue(v interface{}) *tracepb.AttributeValue {
 	case int64:
 		return &tracepb.AttributeValue{
 			Value: &tracepb.AttributeValue_IntValue{IntValue: value},
+		}
+	case float64:
+		// TODO: set double value if Stackdriver Trace support it in the future.
+		return &tracepb.AttributeValue{
+			Value: &tracepb.AttributeValue_StringValue{
+				StringValue: trunc(strconv.FormatFloat(value, 'f', -1, 64),
+					maxAttributeStringValue)},
 		}
 	case string:
 		return &tracepb.AttributeValue{

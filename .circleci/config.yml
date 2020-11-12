@@ -6,7 +6,7 @@ jobs:
   build:
     docker:
       - image: circleci/golang:1.11
-    working_directory: /go/src/github.com/dailynowco/daily-redirector
+    working_directory: /go/src/github.com/dailydotdev/daily-redirector
     steps:
       - checkout
       - restore_cache:
