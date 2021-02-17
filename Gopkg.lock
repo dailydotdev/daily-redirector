@@ -197,6 +197,20 @@
   version = "v0.9.1"
 
 [[projects]]
+  digest = "1:860a44307daedc81a42341b4739a24de918a81c915761af0b960d0df8a6f19ba"
+  name = "github.com/magefile/mage"
+  packages = [
+    "internal",
+    "mage",
+    "mg",
+    "parse",
+    "sh",
+  ]
+  pruneopts = "UT"
+  revision = "07afc7d24f4d6d6442305d49552f04fbda5ccb3e"
+  version = "v1.11.0"
+
+[[projects]]
   digest = "1:de3e0f1d9d5d2fa0f9e5cb8722bf0a99c520b7f95f0c76a23f25c04427bb5647"
   name = "github.com/mssola/user_agent"
   packages = ["."]
@@ -213,12 +227,12 @@
   version = "v1.0.0"
 
 [[projects]]
-  digest = "1:1760ee71834b3d0c59ffb6e0f9444fb68aec64bd6630b99b349fb111f74022fa"
+  digest = "1:b6130532744d156e23d72436ebd9be1ee14b3558cb004837f2a916b0385154bc"
   name = "github.com/sirupsen/logrus"
   packages = ["."]
   pruneopts = "UT"
-  revision = "6699a89a232f3db797f2e280639854bbc4b89725"
-  version = "v1.7.0"
+  revision = "15ca3c069407c43d647261dc2a4a8e76a05094b4"
+  version = "v1.7.1"
 
 [[projects]]
   digest = "1:edb231f4f062fe87e1cc93351e1ee06d4cebf553d1f85f9f3b9b4903df42df20"
