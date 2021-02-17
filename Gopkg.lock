@@ -2,7 +2,7 @@
 
 
 [[projects]]
-  digest = "1:15082d9d76eb8e6b8e11ee518845558ff5d9df6f983acd4c4a938f38f1cb7f43"
+  digest = "1:07bbf40ce0ce2f49cf958e882a8c546211e91981c601c2116d9bcbfe084d6e20"
   name = "cloud.google.com/go"
   packages = [
     ".",
@@ -20,8 +20,8 @@
     "trace/apiv2",
   ]
   pruneopts = "UT"
-  revision = "ca07547ef0053f9655d22cc0608ace365d6397b2"
-  version = "v0.76.0"
+  revision = "5c37101e8211f2e832bb1aefc43b23ec9dd54913"
+  version = "v0.77.0"
 
 [[projects]]
   digest = "1:a150e128c57d183f5ab680a2c77ac70b2fbbd49a2ca022677ed0e40c64ff55ea"
