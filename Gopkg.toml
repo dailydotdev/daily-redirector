@@ -35,7 +35,7 @@
 
 [[constraint]]
   name = "cloud.google.com/go"
-  version = "0.79.0"
+  version = "0.80.0"
 
 [[constraint]]
   name = "github.com/hashicorp/golang-lru"
